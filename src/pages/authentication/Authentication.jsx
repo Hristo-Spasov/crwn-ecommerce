@@ -1,10 +1,10 @@
 // import { getRedirectResult } from "firebase/auth";
-import // auth,
+// import auth,
 // signInWithGoogleRedirect,
-"../../utils/firebase/firebase";
+// "../../utils/firebase/firebase";
 import SignUp from "../../components/sign-up/SignUp";
 import SignIn from "../../components/sign-in/SignIn";
-// import Button from "../../components/button/Button";
+import "./Authentication.scss";
 
 const Authentication = () => {
   // Get auth using Redirect
@@ -20,13 +20,8 @@ const Authentication = () => {
   // }, []);
 
   return (
-    <div>
-      <h1>Sign In Page</h1>
+    <div className="authentication-container">
       <SignIn />
-      {/* <Button>Sign In</Button>
-      <Button buttonType="google" onClick={logGoogleUser}>
-        Sign in with google Popup
-      </Button> */}
       <SignUp />
     </div>
   );
