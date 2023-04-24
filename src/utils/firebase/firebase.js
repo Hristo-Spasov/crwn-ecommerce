@@ -7,6 +7,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    onAuthStateChanged,
 } 
     from 'firebase/auth'
 import {getFirestore,doc,getDoc,setDoc} from 'firebase/firestore'
@@ -90,3 +91,6 @@ export const loginUser = async (email,password) => {
 }
 
 export const logoutUser = async () => await signOut(auth)
+
+//listen to the global auth state so we dont need to pass set current user in every place we need it
+export const onAuthStateChangedListener =  (callback) => onAuthStateChanged(auth,callback)

@@ -1,4 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from "../utils/firebase/firebase";
 
 // as the actual value you want to access
 export const UserContext = createContext({
@@ -12,5 +16,16 @@ export const UserProvider = ({ children }) => {
     currentUser,
     setCurrentUser,
   };
+  // Centralize the current user state so we dont need to put it in every component
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      setCurrentUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
