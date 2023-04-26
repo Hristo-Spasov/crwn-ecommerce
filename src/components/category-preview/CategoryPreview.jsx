@@ -1,4 +1,4 @@
-import "./Categortypreview.scss";
+import "./CategoryPreview.scss";
 import ProductCard from "../product-card/ProductCard";
 
 import React from "react";
