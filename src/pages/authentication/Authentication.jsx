@@ -4,7 +4,7 @@
 // "../../utils/firebase/firebase";
 import SignUp from "../../components/sign-up/SignUp";
 import SignIn from "../../components/sign-in/SignIn";
-import "./Authentication.scss";
+import { AuthenticationContainer } from "./Authentication.styles.jsx";
 
 const Authentication = () => {
   // Get auth using Redirect
@@ -20,10 +20,10 @@ const Authentication = () => {
   // }, []);
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer>
       <SignIn />
       <SignUp />
-    </div>
+    </AuthenticationContainer>
   );
 };
 

@@ -1,6 +1,11 @@
 import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import "./Navbar.scss";
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLink,
+  NavLinksContainer,
+} from "./Navbar.style.jsx";
 import logo from "../../assets/crown.svg";
 import { UserContext } from "../../contexts/UserContext";
 import { CartContext } from "../../contexts/CartContext";
@@ -14,27 +19,23 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="nav-container">
-        <Link to="/" className="logo-container">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <img src={logo} alt="" className="logo" />
-        </Link>
-        <div className="links-container">
-          <Link className="nav-link" to="/shop">
-            SHOP
-          </Link>
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <span className="nav-link" onClick={logoutUser}>
+            <NavLink as="span" onClick={logoutUser}>
               SIGN OUT
-            </span>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
-              SIGN IN
-            </Link>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
           <Cart />
-        </div>
+        </NavLinksContainer>
         {isOpen && <CartDropdown />}
-      </nav>
+      </NavigationContainer>
       <Outlet />
     </>
   );

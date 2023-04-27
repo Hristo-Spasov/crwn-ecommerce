@@ -1,10 +1,10 @@
 import React from "react";
-import Categories from "../../components/categories/Categories";
+import DirectoryItem from "../../components/directory-item/DirectoryItem";
 
 const Home = () => {
   return (
     <div>
-      <Categories />
+      <DirectoryItem />
     </div>
   );
 };
