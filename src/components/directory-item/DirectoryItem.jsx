@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { categories } from "../../constants";
 import {
   DirectoriesContainer,
@@ -7,10 +8,12 @@ import {
 } from "./DirectoryItem.styles.jsx";
 
 const DirectoryItem = () => {
+  const navigate = useNavigate();
+
   return (
     <DirectoriesContainer>
-      {categories.map(({ title, id, imageUrl }) => (
-        <DirectoryContainer key={id}>
+      {categories.map(({ title, id, imageUrl, route }) => (
+        <DirectoryContainer key={id} onClick={() => navigate(route)}>
           <BackgroundImage imageUrl={imageUrl} />
           <Body>
             <h2>{title}</h2>
