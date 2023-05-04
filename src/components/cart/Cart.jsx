@@ -4,7 +4,7 @@ import {
   selectCartCount,
   selectIsOpen,
 } from "../../store/cart/cart.selector.js";
-import { setIsOpen } from "../../store/cart/cart.action.js";
+import { setIsOpen } from "../../store/cart/cart.reducer.js";
 
 const Cart = () => {
   const dispatch = useDispatch();

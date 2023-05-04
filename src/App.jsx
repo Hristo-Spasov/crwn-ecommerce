@@ -9,8 +9,8 @@ import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from "./utils/firebase/firebase";
-import { setCurrentUser } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/user/user.reducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,10 @@ const App = () => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      dispatch(setCurrentUser(user));
+      // passing the seriliazed check
+      const pickedUser =
+        user && (({ accessToken, email }) => ({ accessToken, email }))(user);
+      dispatch(setCurrentUser(pickedUser));
     });
 
     return unsubscribe;
