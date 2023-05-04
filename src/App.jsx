@@ -5,26 +5,14 @@ import Navbar from "./pages/navigation/Navbar";
 import Authentication from "./pages/authentication/Authentication";
 import Shop from "./pages/shop/Shop";
 import Checkout from "./pages/checkout/Checkout";
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from "./utils/firebase/firebase";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
 
-  // Centralize the current user state so we dont need to put it in every component
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-
-    return unsubscribe;
+    dispatch(checkUserSession());
   }, []);
 
   return (

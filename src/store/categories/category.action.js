@@ -1,6 +1,5 @@
 import {createAction} from '../../utils/reducer/createaction'
 import { CATEGORIES_ACTION_TYPES } from './category.types'
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase'
 
 
 
@@ -21,13 +20,13 @@ export const fetchCategoriesFailed = (error) => createAction(CATEGORIES_ACTION_T
 
 
 // The Async Thunk
-export const fetchCategoriesAsync  = () => async (dispatch) => {
-    dispatch(fetchCategoriesStart())
-    try {
-        const categoriesArray = await getCategoriesAndDocuments('categories');
-        dispatch(fetchCategoriesSuccess(categoriesArray))
+// export const fetchCategoriesAsync  = () => async (dispatch) => {
+//     dispatch(fetchCategoriesStart())
+//     try {
+//         const categoriesArray = await getCategoriesAndDocuments('categories');
+//         dispatch(fetchCategoriesSuccess(categoriesArray))
 
-    } catch (error) {
-        dispatch(fetchCategoriesFailed(error))
-    }
-}
+//     } catch (error) {
+//         dispatch(fetchCategoriesFailed(error))
+//     }
+// }

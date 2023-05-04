@@ -115,3 +115,16 @@ export const logoutUser = async () => await signOut(auth)
 
 //listen to the global auth state so we dont need to pass set current user in every place we need it
 export const onAuthStateChangedListener =  (callback) => onAuthStateChanged(auth,callback)
+
+export const getCurrentUser = () => {
+    return new Promise((resolve,reject)=> {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe()
+                resolve(userAuth)
+            },
+            reject
+        )
+    })
+}

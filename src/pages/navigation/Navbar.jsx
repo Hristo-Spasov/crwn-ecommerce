@@ -6,16 +6,20 @@ import {
   NavLinksContainer,
 } from "./Navbar.style.jsx";
 import logo from "../../assets/crown.svg";
-import { logoutUser } from "../../utils/firebase/firebase";
 import Cart from "../../components/cart/Cart";
 import CartDropdown from "../../components/cart-dropdown/CartDropdown";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
 import { selectIsOpen } from "../../store/cart/cart.selector.js";
+import { signOutStart } from "../../store/user/user.action.js";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isOpen = useSelector(selectIsOpen);
+
+  const signOutUser = () => dispatch(signOutStart());
+
   return (
     <>
       <NavigationContainer>
@@ -25,7 +29,7 @@ const Navbar = () => {
         <NavLinksContainer>
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
-            <NavLink as="span" onClick={logoutUser}>
+            <NavLink as="span" onClick={signOutUser}>
               SIGN OUT
             </NavLink>
           ) : (
