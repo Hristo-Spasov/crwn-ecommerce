@@ -5,9 +5,9 @@ import ProductCard from "../../components/product-card/ProductCard";
 import {
   selectCategoriesMap,
   selectCategoriesIsLoading,
-} from "../../store/categories/category.selector.js";
+} from "../../store/categories/category.selector";
 import { useSelector } from "react-redux";
-import Spinner from "../../components/spinner/Spinner.jsx";
+import Spinner from "../../components/spinner/Spinner";
 
 const Category = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
