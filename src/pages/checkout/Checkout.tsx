@@ -3,14 +3,14 @@ import {
   CheckoutHeader,
   HeaderBlock,
   Total,
-} from "./Checkout.style.jsx";
+} from "./Checkout.style";
 import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import { useSelector } from "react-redux";
 import {
   selectCartItems,
   selectCartTotal,
-} from "../../store/cart/cart.selector.js";
-import Payment from "../../components/payment-form/Payment.jsx";
+} from "../../store/cart/cart.selector";
+import Payment from "../../components/payment-form/Payment";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);

@@ -1,44 +1,48 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { defaultFormFields } from "../../constants";
 import FormInput from "../form-input/FormInput";
 import {
   SignInContainer,
   SignInHeader,
   ButtonsContainer,
-} from "./SignIn.styles.jsx";
+} from "./SignIn.styles";
 import Button, { BUTTON_TYPES_CLASSES } from "../button/Button";
+import { useDispatch } from "react-redux";
 import {
-  signInWithGooglePopup,
-  loginUser,
-} from "../../utils/firebase/firebase";
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user.action";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   //! HANDLE CHANGE
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
   //! HANDLE SUBMIT
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const { user } = await loginUser(email, password);
+      dispatch(emailSignInStart(email, password));
       resetFormField();
-    } catch (err) {
-      switch (err.code) {
-        case "auth/wrong-password":
+    } catch (error) {
+      switch ((error as AuthError).code) {
+        case AuthErrorCodes.INVALID_PASSWORD:
           alert("Wrong email or password");
           break;
-        case "auth/user-not-found":
+        case AuthErrorCodes.USER_DELETED:
           alert("Wrong email or password");
           break;
         default:
-          console.log(err);
+          console.log(error);
       }
     }
   };
@@ -47,8 +51,8 @@ const SignIn = () => {
     setFormFields(defaultFormFields);
   };
   //! GOOGLE SIGNIN
-  const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
+  const signInWithGoogle = () => {
+    dispatch(googleSignInStart());
   };
 
   return (

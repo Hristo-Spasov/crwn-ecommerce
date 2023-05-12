@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type BackgroundImageProps = {
+  imageUrl: string;
+};
+
 export const DirectoriesContainer = styled.div`
   width: 100%;
   display: flex;
@@ -7,7 +11,7 @@ export const DirectoriesContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const BackgroundImage = styled.div`
+export const BackgroundImage = styled.div<BackgroundImageProps>`
   width: 100%;
   height: 100%;
   background-size: cover;

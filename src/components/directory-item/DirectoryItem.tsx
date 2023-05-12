@@ -5,7 +5,7 @@ import {
   BackgroundImage,
   Body,
   DirectoryContainer,
-} from "./DirectoryItem.styles.jsx";
+} from "./DirectoryItem.styles";
 
 const DirectoryItem = () => {
   const navigate = useNavigate();

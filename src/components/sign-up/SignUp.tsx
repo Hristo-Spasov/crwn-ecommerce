@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { defaultFormFields } from "../../constants";
-import {
-  createUserWithEmailAndPwd,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase";
 import FormInput from "../form-input/FormInput";
-import { SignUpContainer, SignUpHeader } from "./SignUp.styles.jsx";
+import { SignUpContainer, SignUpHeader } from "./SignUp.styles";
 import Button from "../button/Button";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("passwords do not match");
@@ -25,15 +25,14 @@ const SignUp = () => {
       return;
     }
     try {
-      const { user } = await createUserWithEmailAndPwd(email, password);
-      await createUserDocumentFromAuth(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       resetFormField();
     } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
+      if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Email already exist");
         resetFormField();
       } else {
-        console.log("failed to crate a user", err.message);
+        console.log("failed to crate a user", err);
       }
     }
   };
