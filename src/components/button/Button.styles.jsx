@@ -19,6 +19,7 @@ export const BaseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 
   &:hover {
     background-color: white;
